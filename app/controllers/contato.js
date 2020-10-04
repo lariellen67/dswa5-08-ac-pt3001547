@@ -7,34 +7,78 @@ var contatos = [
   { _id: 4, nome: 'Daniel Samarone', email: 'daniel.samarone@ifsp.edu.br' },
 ];
 
-module.exports = function () {
+module.exports = function (app) {
+  var Contato = app.models.contato;
   var controller = {};
   controller.listaContatos = function (req, res) {
-    res.json(contatos);
+    Contato.find()
+      .exec()
+      .then(
+        function (contatos) {
+          res.json(contatos);
+        },
+        function (error) {
+          console.error(error);
+          res.status(500).json(error);
+        }
+      );
   };
+
   controller.obtemContatos = function (req, res) {
-    console.log('Contato selecionado: ' + req.params.id);
-    const { id } = req.params;
-    const contato = contatos.filter(function (contato) {
-      return contato._id == id;
-    })[0];
-    contato
-      ? res.json(contato)
-      : res.status(404).send('Contato não encontrado');
+    var _id = req.params.id;
+    Contato.findById(_id)
+      .exec()
+      .then(
+        function (contato) {
+          if (!contato) throw new Error('Contato não encontrado');
+          res.json(contato);
+        },
+        function (error) {
+          console.log(error);
+          res.status(404).json(error);
+        }
+      );
   };
 
   controller.removeContato = function (req, res) {
-    const { id } = req.params;
-    contatos = contatos.filter(function (contato) {
-      return contato._id != id;
-    });
-    res.status(204).send('Contato deletado').end();
+    var _id = req.params.id;
+    Contato.deleteOne({ _id: _id })
+      .exec()
+      .then(
+        function () {
+          res.end();
+        },
+        function (error) {
+          return console.error(error);
+        }
+      );
   };
 
   controller.salvaContato = function (req, res) {
-    var contato = req.body;
-    contato = contato._id ? atualiza(contato) : adiciona(contato);
-    res.json(contato);
+    var _id = req.body._id;
+    if (_id) {
+      Contato.findByIdAndUpdate(_id, req.body)
+        .exec()
+        .then(
+          function (contato) {
+            res.json(contato);
+          },
+          function (error) {
+            console.error(error);
+            res.status(500).json(error);
+          }
+        );
+    } else {
+      Contato.create(req.body).then(
+        function (contato) {
+          res.status(201).json(contato);
+        },
+        function (error) {
+          console.log(error);
+          res.status(500).json(error);
+        }
+      );
+    }
   };
 
   function adiciona(contatoNovo) {
