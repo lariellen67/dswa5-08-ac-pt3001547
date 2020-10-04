@@ -1,3 +1,4 @@
+//mongoose
 var ID_CONTATO_INC = 4;
 
 var contatos = [
