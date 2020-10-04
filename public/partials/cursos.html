@@ -1,0 +1,56 @@
+<div class="jumbotron ng-scope">
+  <p ng-show="mensagem.texto">{{mensagem.texto}}</p>
+  <img style="float: left" src="https://dswa5-01-ac.herokuapp.com/Logo.jpg" />
+  <h1 class="text-center">Bem vindo ao IFSP</h1>
+  <h3 class="text-center">Lista de Cursos</h3>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="collapse navbar-collapse" id="navbar">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/#/contatos">Contatos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/#/cursos">Cursos<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-md-0 ng-pristine ng-valid">
+      <input
+        class="form-control ng-pristine ng-untouched ng-valid"
+        ng-model="filtro"
+        type="search"
+        placeholder="Digite parte do nome..."
+      />
+    </form>
+  </div>
+</nav>
+
+<br/>
+<a ng-href="#/curso" class="btn btn-primary">Novo Curso</a>
+<br/>
+<br/>
+    
+<p ng-show="cursos.length"> Cursos Cadastrados: {{ cursos.length }}</p>
+<p class="text-danger" ng-hide="cursos.length">Não há cursos cadastrados </p>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <tr >
+      <th>Curso</th>
+      <th>Coordenador</th>
+      <th class="text-center">Ação</th>
+    </tr>
+    <tr ng-repeat="curso in cursos | filter: filtro">
+      <td><a ng-href="#/curso/{{curso._id}}">{{curso.nome}}</a></td>
+      <td>{{curso.email}}</td>
+      <td class="text-center">
+        <button ng-click="remove(curso)" class="btn btn-warning">
+          Remover
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
+  </div>
+</nav>

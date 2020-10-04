@@ -1,0 +1,60 @@
+<!--public/index.html-->
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <img src="https://dswa5-01-ac.herokuapp.com/Logo.jpg" />
+    <title>IFSP - Pirituba</title>
+  </head>
+  <body>
+    <h1>Avaliação contínua</h1>
+    <h2>Aluno do IFSP, bem-vindo ao <%=nome %></h2>
+
+    <a href="/contacts">
+      <h2>
+        <%=contatos %>
+      </h2>
+    </a>
+    <ul>
+      <li>
+        <a href="contacts/1">Contato 1</a>
+      </li>
+      <li>
+        <a href="contacts/2">Contato 2</a>
+      </li>
+      <li>
+        <a href="contacts/3">Contato 3</a>
+      </li>
+      <li>
+        <a href="contacts/4">Contato 4</a>
+      </li>
+      <li>
+        <a href="contacts/5">Contato 5</a>
+      </li>
+    </ul>
+
+    <a href="/courses">
+      <h2>
+        <%=cursos %>
+      </h2>
+    </a>
+    <ul>
+      <li>
+        <a href="courses/1">Curso 1</a>
+      </li>
+      <li>
+        <a href="courses/2">Curso 2</a>
+      </li>
+      <li>
+        <a href="courses/3">Curso 3</a>
+      </li>
+      <li>
+        <a href="courses/4">Curso 4</a>
+      </li>
+      <li>
+        <a href="courses/5">Curso 5</a>
+      </li>
+    </ul>
+  </body>
+</html>
